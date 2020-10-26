@@ -11,19 +11,16 @@ function Phrase(content) {
 
   // Return content processed for palindrome testing.
   this.processedContent = function processedContent() {
-    return this.letters().toLowerCase();
-  }
-
-  // Returns the letters in the content.
-  // For example:
-  //   new Phrase("Hello, world!").letters() === "Helloworld"
-  this.letters = function letters() {
-    return Array.from(this.content).filter(c => c.match(/[a-z]/i)).join("");
+    return (this.content.match(/[a-z]/gi) || []).join("").toLowerCase();
   }
 
   // Returns true if the phrase is a palindrome, false otherwise.
   this.palindrome = function palindrome() {
-    return this.processedContent() === this.processedContent().reverse();
+    if (this.processedContent()) {
+      return this.processedContent() === this.processedContent().reverse();
+    } else {
+      return false;
+    }
   }
 }
 
@@ -31,12 +28,23 @@ function Phrase(content) {
 },{}],2:[function(require,module,exports){
 let Phrase = require("mhartl-palindrome");
 
-let string = prompt("Please enter a string for palindrome testing:");
-let phrase = new Phrase(string);
+function palindromeTester() {
+  event.preventDefault();
 
-if (phrase.palindrome()) {
-  alert(`"${phrase.content}" is a palindrome!`);
-} else {
-  alert(`"${phrase.content}" is not a palindrome.`)
+  let phrase = new Phrase(event.target.phrase.value);
+  let palindromeResult = document.querySelector("#palindromeResult");
+
+  if (phrase.palindrome()) {
+    palindromeResult.innerHTML = `"${phrase.content}" is a palindrome!`;
+  } else {
+    palindromeResult.innerHTML = `"${phrase.content}" is not a palindrome.`;
+  }
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+  let tester = document.querySelector("#palindromeTester");
+  tester.addEventListener("submit", function(event) {
+    palindromeTester(event);
+  });
+});
 },{"mhartl-palindrome":1}]},{},[2]);
