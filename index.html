@@ -4,7 +4,26 @@
     <title>Learn Enough JavaScript</title>
     <meta charset="utf-8" />
     <script>
-      alert("hello, world!");
+      const daysOfTheWeek = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+      const bDay = new Date("October 11, 1984 2:00");
+      let moonLanding = new Date("July 20, 1969 20:18");
+      let now = new Date();
+      let dayName = daysOfTheWeek[now.getDay()];
+
+      alert(`Hello, world! Happy ${dayName}`);
+      alert(
+        `you were born ${
+          (bDay - moonLanding) / 86400000 / 365
+        } years after the moon landing!`
+      );
     </script>
   </head>
   <body>
